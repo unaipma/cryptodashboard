@@ -20,20 +20,47 @@ export async function getTrendingCoins() {
     return res.json();
 }
 
-export async function getCoinHistory(id: string) {
-    const res = await fetch(
-        `${BASE_URL}/coins/${id}/market_chart?vs_currency=usd&days=7&interval=daily`,
-        { next: { revalidate: 3600 } }/*Update in one hour */
-    );
+export async function getCoinHistory(id: string, days: string = "7") {
+    try {
+        const res = await fetch(
+            `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=${days}`,
+            {
+                next: { revalidate: 60 },
 
-    if (!res.ok) {
-        throw new Error(`No se pudo cargar el historial de ${id}`);
+                headers: { 'Accept': 'application/json' }
+            }
+        );
+
+        if (!res.ok) {
+            if (res.status === 429) throw new Error("Rate Limit: Demasiadas peticiones");
+            throw new Error("Error en la API");
+        }
+
+        const data = await res.json();
+
+        return data.prices.map((item: [number, number]) => {
+            const date = new Date(item[0]);
+
+
+            let label = "";
+            if (days === "1") {
+
+                label = date.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+            } else if (days === "365") {
+
+                label = date.toLocaleDateString('es-ES', { month: 'short', year: '2-digit' });
+            } else {
+
+                label = date.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' });
+            }
+
+            return {
+                date: label,
+                price: item[1],
+            };
+        });
+    } catch (error) {
+        console.error("Fallo al obtener historial:", error);
+        throw error;
     }
-
-    const data = await res.json();
-
-    return data.prices.map((item: [number, number]) => ({
-        date: new Date(item[0]).toLocaleDateString('es-ES', { weekday: 'short' }),
-        price: item[1],
-    }));
 }

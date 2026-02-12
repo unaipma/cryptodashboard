@@ -1,7 +1,6 @@
 import { getCoinHistory } from "@/lib/api";
-import CoinChart from "@/components/CoinChart";
+import PriceChart from "@/components/PriceChart";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
 import AIAdvisor from "@/components/AIAdvisor";
 import { getCoins } from "@/lib/api";
 import { formatCurrency } from "@/lib/utils";
@@ -27,7 +26,7 @@ export default async function CoinPage({ params }: { params: Promise<{ id: strin
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     <div className="lg:col-span-2 space-y-6">
                         <h1 className="text-4xl font-bold capitalize">{id} Overview</h1>
-                        <CoinChart data={history} />
+                        <PriceChart coinId={id} initialData={history} />
                     </div>
 
                     <div className="space-y-6">
