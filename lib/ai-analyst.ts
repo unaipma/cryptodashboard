@@ -1,4 +1,4 @@
-// lib/ai-analyst.ts
+
 
 export type Recommendation = "Strong Buy" | "Buy" | "Hold" | "Sell" | "Strong Sell";
 
@@ -7,8 +7,7 @@ export function getAIRecommendation(priceChange: number, currentPrice: number): 
     color: string;
     reason: string;
 } {
-    // Simulamos un análisis basado en la variación de 24h
-    // En una app real, aquí llamarías a una API de OpenAI o Anthropic
+
 
     if (priceChange > 5) return {
         rating: "Strong Sell",

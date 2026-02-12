@@ -5,6 +5,7 @@ import { ArrowLeft } from "lucide-react";
 import AIAdvisor from "@/components/AIAdvisor";
 import { getCoins } from "@/lib/api";
 import { formatCurrency } from "@/lib/utils";
+import { Coin } from "@/types/coin";
 
 import { getRealAIAnalysis } from "@/lib/ai-service";
 
@@ -12,8 +13,8 @@ import { getRealAIAnalysis } from "@/lib/ai-service";
 export default async function CoinPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
     const history = await getCoinHistory(id);
-    const allCoins = await getCoins();
-    const currentCoin = allCoins.find(c => c.id === id);
+    const allCoins: Coin[] = await getCoins();
+    const currentCoin = allCoins.find((c: Coin) => c.id === id);
 
     const aiAnalysis = currentCoin
         ? await getRealAIAnalysis(currentCoin.name, currentCoin.current_price, currentCoin.price_change_percentage_24h)
