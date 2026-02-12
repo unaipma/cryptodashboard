@@ -82,9 +82,10 @@ export default function PriceChart({ coinId, initialData }: { coinId: string, in
                         <Tooltip
                             contentStyle={{ backgroundColor: '#0f172a', border: '1px solid #1e293b', borderRadius: '12px' }}
 
-                            formatter={(value: number | string) => {
+                            formatter={(value: number | string | undefined) => {
+                                if (value === undefined) return ["N/A", "Precio"];
                                 const numericValue = typeof value === 'string' ? parseFloat(value) : value;
-                                return [formatCurrency(numericValue ?? 0), "Precio"];
+                                return [formatCurrency(numericValue), "Precio"];
                             }}
                         />
                         <Area
