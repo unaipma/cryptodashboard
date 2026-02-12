@@ -71,7 +71,7 @@ export default function PriceChart({ coinId, initialData }: { coinId: string, in
                             fontSize={10}
                             tickLine={false}
                             axisLine={false}
-                            // Esto es clave: 'preserveStartEnd' y un minTickGap para que no se solapen
+
                             interval="preserveStartEnd"
                             minTickGap={30}
                         />
@@ -81,7 +81,11 @@ export default function PriceChart({ coinId, initialData }: { coinId: string, in
                         />
                         <Tooltip
                             contentStyle={{ backgroundColor: '#0f172a', border: '1px solid #1e293b', borderRadius: '12px' }}
-                            formatter={(value: number) => [formatCurrency(value), "Precio"]}
+
+                            formatter={(value: number | string) => {
+                                const numericValue = typeof value === 'string' ? parseFloat(value) : value;
+                                return [formatCurrency(numericValue ?? 0), "Precio"];
+                            }}
                         />
                         <Area
                             type="monotone"
