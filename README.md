@@ -10,7 +10,7 @@
 ##  Características Principales
 
 * ** AI Market Insights:** Análisis técnico en tiempo real generado por **Google Gemini 2.5 Flash**. La IA evalúa la volatilidad y el precio actual para emitir veredictos de inversión (Buy/Hold/Sell).
-* ** Visualización de Datos:** Gráficas de área interactivas con **Recharts** que muestran la evolución del precio en los últimos 7 días.
+* ** Visualización de Datos:** Gráficas de área interactivas con **Recharts** que muestran la evolución del precio en un periodo de tiempo a elegir.
 * ** Arquitectura Moderna:** Uso de **Server Components** para optimizar la carga y **Server Actions** para procesar peticiones de IA de forma segura.
 * ** Interfaz "Glassmorphism":** Diseño profesional con Tailwind CSS, efectos de desenfoque de fondo, modo oscuro nativo y estados de carga (Skeletons).
 * ** Datos en Tiempo Real:** Integración con la API de CoinGecko para obtener precios actualizados y capitalización de mercado.
